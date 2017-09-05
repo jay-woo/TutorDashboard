@@ -1,0 +1,19 @@
+export interface Appointment {
+  $key?:string,
+  client:string,
+  date:{
+    day:number,
+    month:number,
+    year:number
+  },
+  startTime:{
+    hour:number,
+    minute:number,
+    period:string
+  },
+  endTime:{
+    hour:number,
+    minute:number,
+    period:string
+  }
+}

@@ -1,6 +1,12 @@
+// Angular imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+// AngularFire imports
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 // Component imports
 import { AppComponent } from './app.component';
@@ -20,6 +26,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
+// Service imports
+import { ClientService } from './services/client.service';
+import { AppointmentService } from './services/appointment.service';
+
 // Routes
 const appRoutes:Routes = [
   {path: '', component: AppointmentDashboardComponent},
@@ -27,6 +37,16 @@ const appRoutes:Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
 ];
+
+// Initialize Firebase
+var firebaseConfig = {
+  apiKey: "AIzaSyAJqNllT9J7aiQE3p8GjahBbT8_0GjQuFU",
+  authDomain: "tutordashboard.firebaseapp.com",
+  databaseURL: "https://tutordashboard.firebaseio.com",
+  projectId: "tutordashboard",
+  storageBucket: "tutordashboard.appspot.com",
+  messagingSenderId: "80726589740"
+};
 
 @NgModule({
   declarations: [
@@ -49,9 +69,15 @@ const appRoutes:Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [],
+  providers: [
+    AngularFireAuth,
+    AngularFireDatabase,
+    ClientService,
+    AppointmentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
